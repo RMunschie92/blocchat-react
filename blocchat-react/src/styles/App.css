@@ -1,0 +1,33 @@
+.App {
+  height: 100%;
+  font-family: 'Open Sans Condensed', sans-serif;
+}
+
+.App {
+  display: flex;
+  flex-direction: column;
+}
+
+main {
+  width: 100%;
+}
+
+li {
+  list-style: none;
+}
+
+.main-content {
+  display: flex;
+  flex-direction: row;
+  min-height: 100%;
+}
+
+.room-list-div {
+  width: 20%;
+  display: flex;
+}
+
+.message-list-div {
+  width: 80%;
+  display: flex;
+}

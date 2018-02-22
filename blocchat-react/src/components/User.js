@@ -1,4 +1,7 @@
 import React, { Component } from 'react';
+import SignIn from './SignIn.js';
+import SignOut from './SignOut.js';
+import '../styles/User.css';
 
 class User extends Component{
   constructor(props){
@@ -8,7 +11,7 @@ class User extends Component{
   }
 
   componentDidMount() {
-    this.props.firebase.auth().onAuthStateChanged( user => {
+      this.props.firebase.auth().onAuthStateChanged( user => {
       this.props.setUser(user);
     });
   }
@@ -28,16 +31,22 @@ class User extends Component{
 
   render() {
     return(
-      <section className="auth-buttons">
-        <div className="username-display">
-          <h3>Welcome, </h3>
-          <h3> {this.props.user === null ? "Guest" : this.props.user.displayName} </h3>
+      <section className="user-and-header">
+        <div className="header">
+          <h2>Bloc Chat</h2>
         </div>
-        <div className="sign-in">
-          <button id="sign-in-button" onClick={this.signIn} >Sign In</button>
-        </div>
-        <div className="sign-out">
-          <button id="sign-in-button" onClick={this.signOut}>Sign Out</button>
+        <div className="username-and-buttons">
+          <div className="username-display">
+            <h3 className="hello">Hello,</h3>
+            <h3 className="addressee">{this.props.user === null ? "Guest" : this.props.user.displayName}</h3>
+          </div>
+          <div className="sign-in/out">
+            {this.props.user === null ? (
+              <SignIn signIn={(e) => this.signIn(e)} />
+            ) : (
+              <SignOut signOut={(e) => this.signOut(e)} />
+            )}
+          </div>
         </div>
       </section>
     );

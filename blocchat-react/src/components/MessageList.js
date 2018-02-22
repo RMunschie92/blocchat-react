@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import '../styles/MessageList.css';
+import '../styles/App.css';
 
 class MessageList extends Component{
   constructor(props) {
@@ -6,9 +8,9 @@ class MessageList extends Component{
     this.state = {
       messages: [],
       content: '',
-      username: '',
       roomId: '',
-      sentAt: ''
+      sentAt: '',
+      validUser: null
     };
 
 
@@ -41,7 +43,6 @@ class MessageList extends Component{
     e.preventDefault();
     this.setState({
       content: e.target.value,
-      username: this.props.user.displayName,
       roomId: this.props.activeRoom,
       sentAt: this.prettyTime()
     });
@@ -49,12 +50,36 @@ class MessageList extends Component{
 
   createMessage(e) {
     e.preventDefault();
-    this.messagesRef.push({
-      content: this.state.content,
-      username: this.state.username,
-      roomId: this.state.roomId,
-      sentAt: this.state.sentAt
-    });
+    if ( this.props.user === null ) {
+      alert("Please sign in to send a message.")
+    }
+    else {
+      this.messagesRef.push({
+        content: this.state.content,
+        username: this.props.user.displayName,
+        roomId: this.state.roomId,
+        sentAt: this.state.sentAt
+      });
+    }
+    document.getElementById("message-form").reset();
+  }
+
+  getBubbleClass(message, user) {
+    if (this.props.user === null || message.username !== this.props.user.displayName) {
+      return 'receive-message-bubble';
+    }
+    else if (message.username === this.props.user.displayName) {
+      return 'send-message-bubble';
+    }
+  }
+
+  getContentClass(message, user) {
+    if (this.props.user === null || message.username !== this.props.user.displayName) {
+      return 'receive-message-content';
+    }
+    else if (message.username === this.props.user.displayName) {
+      return 'send-message-content';
+    }
   }
 
 
@@ -63,20 +88,20 @@ class MessageList extends Component{
     let activeMessages = this.state.messages.filter( message => message.roomId === this.props.activeRoom );
 
     return (
-      <section className="message-list">
+      <section className="message-content">
 
-        <div className="active-room-name">
-          <h3>{this.props.activeRoomName}</h3>
+        <div className="messages-header">
+          <h3 className="active-room-name">{this.props.activeRoomName}</h3>
         </div>
 
-        <div className="messages">
+        <div className="messages-list">
           <ul>
             {
               activeMessages.map( (message, index) =>
-                <li key={message.key}>
-                  <div>{message.content}</div>
-                  <div>{message.username}</div>
-                  <div>{message.sentAt}</div>
+                <li className={this.getBubbleClass(message, this.props.user)} key={message.key}>
+                  <div className="message-username">{message.username}</div>
+                  <div className={this.getContentClass(message, this.props.user)}>{message.content}</div>
+                  <div className="message-timestamp">{message.sentAt}</div>
                 </li>
               )
             }
@@ -84,10 +109,10 @@ class MessageList extends Component{
         </div>
 
         {this.props.activeRoom === null ? '' :
-          <div className="message-form">
-            <form>
+          <div className="message-footer">
+            <form id="message-form">
               <input type="text" className="message-input" placeholder="Write your message here..." onChange={ (e) => {this.handleMessageChange(e)} } />
-              <input type="submit" value="SEND" onClick={ (e) => {this.createMessage(e)} } />
+              <input type="submit" className="message-submit" value="SEND" onClick={ (e) => {this.createMessage(e)} } />
             </form>
           </div>
         }

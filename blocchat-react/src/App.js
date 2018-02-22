@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import './App.css';
+import './styles/App.css';
 import * as firebase from 'firebase';
 import RoomList from './components/RoomList';
 import MessageList from './components/MessageList';
@@ -42,28 +42,40 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <header>
-          <h2>Bloc Chat</h2>
-        </header>
         <main>
-          <User
-            firebase = {firebase}
-            user = {this.state.user}
-            setUser = {(username) => this.setUser(username)}
-          />
-          <RoomList
-            firebase = {firebase}
-            activeRoom = {this.state.activeRoom}
-            user = {this.state.user}
-            activeRoomName = {this.state.activeRoomName}
-            handleRoomClick = {(e) => this.handleRoomClick(e)}
-          />
-          <MessageList
-            firebase = {firebase}
-            user = {this.state.user}
-            activeRoom = {this.state.activeRoom}
-            activeRoomName = {this.state.activeRoomName}
-          />
+
+          <div className="user-component">
+            <User
+              firebase = {firebase}
+              user = {this.state.user}
+              setUser = {(username) => this.setUser(username)}
+            />
+          </div>
+
+          <div className="main-content">
+
+
+              <div className="room-list-div">
+                <RoomList className="room-list-component"
+                  firebase = {firebase}
+                  activeRoom = {this.state.activeRoom}
+                  user = {this.state.user}
+                  activeRoomName = {this.state.activeRoomName}
+                  handleRoomClick = {(e) => this.handleRoomClick(e)}
+                />
+              </div>
+
+              <div className="message-list-div">
+                <MessageList className="message-list-component"
+                  firebase = {firebase}
+                  user = {this.state.user}
+                  activeRoom = {this.state.activeRoom}
+                  activeRoomName = {this.state.activeRoomName}
+                />
+              </div>
+
+            
+          </div>
 
         </main>
       </div>

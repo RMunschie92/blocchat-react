@@ -1,11 +1,14 @@
 import React, { Component } from 'react';
+import '../styles/RoomList.css';
+import '../styles/App.css';
 
 class RoomList extends Component{
   constructor(props) {
     super(props);
     this.state = {
       rooms: [],
-      newRoomName: ''
+      newRoomName: null,
+      validUser: null
     };
 
     this.roomsRef = this.props.firebase.database().ref('rooms');
@@ -25,33 +28,47 @@ class RoomList extends Component{
   }
 
   createRoom(e) {
-    this.roomsRef.push({
-      name: this.state.newRoomName
-    });
-    e.preventDefault();
+    if ( this.state.newRoomName === '' || this.state.newRoomName === null ) {
+      alert("Please enter a valid room name.");
+    }
+    else if ( this.props.user === null ) {
+      alert("Please sign in to create a new room.");
+    }
+    else {
+      this.roomsRef.push({
+        name: this.state.newRoomName
+      });
+      e.preventDefault();
+      document.getElementById("new-room-form").reset();
+    }
   }
 
   render() {
     return (
       <section className="rooms-list">
-        <div className="room-names">
-          <h3>Room List</h3>
-          <ul>
-            {
-              this.state.rooms.map( (room, index) =>
-                <li className={room.key} id={index} key={room.key} data-name={room.name} onClick={(e) => { this.props.handleRoomClick(e)} }>
-                  {room.name}
-                </li>
-              )
-            }
-          </ul>
-        </div>
+        <h3>Chat Rooms</h3>
 
-        <div className="new-room-form">
-          <form>
-            <input type="text" name="new-room-name" placeholder="New room name..." onChange={(e) => { this.handleChange(e)} }/>
-            <input type="submit" value="New Room" onClick={ (e) => { this.createRoom(e) } }/>
-          </form>
+        <div className="rooms-list-content">
+
+          <div className="room-names">
+            <ul>
+              {
+                this.state.rooms.map( (room, index) =>
+                  <li className={room.key} id={index} key={room.key} data-name={room.name} onClick={(e) => { this.props.handleRoomClick(e)} }>
+                    {room.name}
+                  </li>
+                )
+              }
+            </ul>
+          </div>
+
+          <div className="new-room-form">
+            <form id="new-room-form">
+              <input type="text" name="new-room-name" placeholder="New room name..." onChange={(e) => { this.handleChange(e)} }/>
+              <span onClick={ (e) => { this.createRoom(e) } }><i className="fas fa-plus-circle fa-lg"></i></span>
+            </form>
+          </div>
+
         </div>
       </section>
     );
