@@ -45,31 +45,31 @@ class RoomList extends Component{
 
   render() {
     return (
-      <section className="rooms-list">
-        <h3>Chat Rooms</h3>
+      <section className="rooms-list-container">
 
-        <div className="rooms-list-content">
-
-          <div className="room-names">
-            <ul>
-              {
-                this.state.rooms.map( (room, index) =>
-                  <li className={room.key} id={index} key={room.key} data-name={room.name} onClick={(e) => { this.props.handleRoomClick(e)} }>
-                    {room.name}
-                  </li>
-                )
-              }
-            </ul>
-          </div>
-
-          <div className="new-room-form">
-            <form id="new-room-form">
-              <input type="text" name="new-room-name" placeholder="New room name..." onChange={(e) => { this.handleChange(e)} }/>
-              <span onClick={ (e) => { this.createRoom(e) } }><i className="fas fa-plus-circle fa-lg"></i></span>
-            </form>
-          </div>
-
+        <div className="fixed-rooms-header">
+          <h3>Chat Rooms</h3>
         </div>
+
+        <div className="scrolling-rooms-list">
+          <ul>
+            {
+              this.state.rooms.map( (room, index) =>
+                <li className={room.key} id={index} key={room.key} data-name={room.name} onClick={(e) => { this.props.handleRoomClick(e)} }>
+                  {room.name}
+                </li>
+              )
+            }
+          </ul>
+        </div>
+
+        <div className="fixed-rooms-footer">
+          <form id="new-room-form">
+            <input type="text" name="new-room-name" placeholder="New room name..." onChange={(e) => { this.handleChange(e)} }/>
+            <span onClick={ (e) => { this.createRoom(e) } }><i className="fas fa-plus-circle fa-lg"></i></span>
+          </form>
+        </div>
+
       </section>
     );
   }

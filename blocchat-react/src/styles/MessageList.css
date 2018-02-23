@@ -1,54 +1,67 @@
 /******************************
-        SECTION CONTAINER
-*******************************/
+      LAYOUT/FLEX STYLES
+********************************/
 
-.message-content {
+.messages-container {
+  display: flex;
+  flex: auto;
+  flex-direction: column;
+  max-height: 100%;
   width: 100%;
-  height: 85vh;
-  border: 1px solid grey;
-  position: relative;
+}
+
+.fixed-messages-header, .fixed-messages-footer {
+  flex: none;
+  height: 3em;
+}
+
+.scrolling-messages-list {
   display: flex;
   flex-direction: column;
+  flex: auto;
+  overflow-y: auto;
+  justify-content: flex-end;
+}
+
+
+/******************************
+      CONTAINER STYLES
+*******************************/
+
+.messages-container {
+  border: 1px solid grey;
 }
 
 /******************************
       STICKY ROOM NAME-HEADER
 *******************************/
 
-.messages-header {
-  text-align: center;
-  font-size: 1.5rem;
+.fixed-messages-header {
+  font-size: 1.35rem;
   font-weight: lighter;
   border-bottom: 1px solid #d6d6d6;
-  height: 7%;
   display: flex;
-  flex-direction: column;
   justify-content: center;
+  align-items: center;
   background: #e6e6e6;
 }
 
-.active-room-name h3 {
-  margin: 0;
-  padding: 0;
-}
-
 /*****************************
-        LIST/FLEX CONTAINER
+        LIST STYLES
 ******************************/
 
-.messages-list {
-  overflow-y: scroll;
-}
-
-.messages-list ul {
+.scrolling-messages-list ul {
   display: flex;
   flex-direction: column;
-  padding: 0;
   margin-left: .5em;
   margin-top: 0;
-  max-height: 80%;
+  overflow-y: auto;
 }
 
+.scrolling-messages-list ul li {
+  padding-bottom: .5em;
+  max-width: 40%;
+}
 
 /********************************
         MESSAGE BUBBLES/CONTENT
@@ -72,17 +85,19 @@
   max-width: 45%;
   flex-wrap: wrap;
   justify-content: space-between;
-  margin: 5px;
+  margin-left: 1em;
 }
 
 .send-message-content {
   border: 1px solid blue;
+  max-width: 95%;
   font-size: 1.25em;
   padding: 5px 10px;
 }
 
 .receive-message-content {
   border: 1px solid grey;
+  max-width: 95%;
   font-size: 1.25em;
   padding: 5px 10px;
 }
@@ -95,29 +110,25 @@
         STICKY MESSAGE FORM
 *****************************/
 
+.fixed-messages-footer {
+  border-top: 1px solid #d6d6d6;
+}
 
-.message-footer form {
+.fixed-messages-footer form {
   display: flex;
-  width: 100%;
-  position: absolute;
-  bottom: 0;
-  margin-top: 2em;
 }
 
 .message-input {
-  flex-grow: 20;
+  width: 90%;
   font-size: 1.25em;
   font-weight: lighter;
   padding: 10px 10px;
 }
 
-.message-submit {
-  flex-grow: 1;
-}
-
 #message-form input[type=submit] {
+  width: 10%;
   font-size: 1.25em;
   background: #e6e6e6;
-  /* font-weight: lighter; */
+  font-weight: lighter;
   padding: 5px 10px;
 }

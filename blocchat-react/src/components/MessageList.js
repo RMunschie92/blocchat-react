@@ -88,13 +88,13 @@ class MessageList extends Component{
     let activeMessages = this.state.messages.filter( message => message.roomId === this.props.activeRoom );
 
     return (
-      <section className="message-content">
+      <section className="messages-container">
 
-        <div className="messages-header">
+        <div className="fixed-messages-header">
           <h3 className="active-room-name">{this.props.activeRoomName}</h3>
         </div>
 
-        <div className="messages-list">
+        <div className="scrolling-messages-list">
           <ul>
             {
               activeMessages.map( (message, index) =>
@@ -109,7 +109,7 @@ class MessageList extends Component{
         </div>
 
         {this.props.activeRoom === null ? '' :
-          <div className="message-footer">
+          <div className="fixed-messages-footer">
             <form id="message-form">
               <input type="text" className="message-input" placeholder="Write your message here..." onChange={ (e) => {this.handleMessageChange(e)} } />
               <input type="submit" className="message-submit" value="SEND" onClick={ (e) => {this.createMessage(e)} } />

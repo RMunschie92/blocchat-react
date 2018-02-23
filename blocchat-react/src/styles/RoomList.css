@@ -1,11 +1,36 @@
-.rooms-list {
+/******************************
+      LAYOUT/FLEX STYLES
+********************************/
+
+.rooms-list-container {
   display: flex;
+  flex: auto;
   flex-direction: column;
-  text-align: center;
+  align-items: center;
+  max-height: 100%;
+  width: 100%;
+}
+
+.fixed-rooms-header, .fixed-rooms-footer {
+  flex: none;
+  height: 3em;
+}
+
+.scrolling-rooms-list {
+  display: flex;
+  align-items: flex-start;
+  flex: auto;
+  overflow-y: auto;
+}
+
+/******************************
+      CONTAINER STYLES
+********************************/
+
+
+.rooms-list-container {
   background: rgb(164, 194, 244);
   color: white;
-  width: 100%;
-  flex-grow: 1;
   border-top: 1px solid grey;
 }
 
@@ -14,7 +39,7 @@
 ********************************/
 
 
-.rooms-list h3 {
+.fixed-rooms-header h3 {
   font-size: 2em;
 }
 
@@ -23,16 +48,18 @@
       ROOM LIST
 ********************************/
 
-.room-names ul {
+
+
+.scrolling-rooms-list ul {
   padding: 0;
   display: flex;
-  font-size: 1.5em;
+  font-size: 1.35em;
   flex-direction: column;
+  justify-content: space-around;
   align-items: center;
-  overflow-y: scroll;
 }
 
-.room-names ul li {
+.scrolling-rooms-list ul li {
   border: 1px solid #d6d6d6;
   padding: 5px 10px;
   margin: .5em;
@@ -40,36 +67,27 @@
   box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
 }
 
-.room-names {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-}
-
  /******************************
         NEW ROOM FORM
 ********************************/
 
-.new-room-form {
-  /* padding-top: 1em; */
-  /* position: absolute; */
-  /* bottom: 5; */
+.fixed-rooms-footer {
   text-align: center;
 }
 
-.new-room-form input {
+.fixed-rooms-footer input {
   font-size: 1em;
   overflow-x: scroll;
 }
 
-.new-room-form input[type=text] {
+.fixed-rooms-footer input[type=text] {
   background: none;
   color: rgb(153, 153, 153);
   border: none;
   border-bottom: 1px solid rgb(153, 153, 153);
 }
 
-.new-room-form input[type=text]:focus {
+.fixed-rooms-footer input[type=text]:focus {
   outline: none;
   color: black;
   border-bottom: 1px solid black;

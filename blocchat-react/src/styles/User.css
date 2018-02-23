@@ -5,7 +5,8 @@
   align-items: stretch;
   background: rgb(60, 126, 216);
   color: white;
-  height: 15vh;
+  /* height: 15vh; */
+  /* height: 50%; */
 }
 
 .header {
