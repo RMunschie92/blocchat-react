@@ -12,8 +12,7 @@ class MessageList extends Component{
       sentAt: '',
       validUser: null
     };
-
-
+    
     this.messagesRef = this.props.firebase.database().ref('messages');
   }
 
@@ -22,6 +21,7 @@ class MessageList extends Component{
       const message = snapshot.val();
       message.key = snapshot.key;
       this.setState({ messages: this.state.messages.concat( message ) });
+
     });
   }
 
@@ -46,6 +46,12 @@ class MessageList extends Component{
       roomId: this.props.activeRoom,
       sentAt: this.prettyTime()
     });
+  }
+
+  handleKeyPress(e) {
+    if (e.target.className === 'message-input' && e.key === 'Enter') {
+      this.createMessage(e);
+    }
   }
 
   createMessage(e) {
@@ -94,25 +100,30 @@ class MessageList extends Component{
           <h3 className="active-room-name">{this.props.activeRoomName}</h3>
         </div>
 
-        <div className="scrolling-messages-list">
-          <ul>
-            {
-              activeMessages.map( (message, index) =>
-                <li className={this.getBubbleClass(message, this.props.user)} key={message.key}>
-                  <div className="message-username">{message.username}</div>
-                  <div className={this.getContentClass(message, this.props.user)}>{message.content}</div>
-                  <div className="message-timestamp">{message.sentAt}</div>
-                </li>
-              )
-            }
-          </ul>
-        </div>
+
+          <div className="messages-overflow-container">
+            <div className="scrolling-messages-list" id="scrolling-messages-list">
+              <ul id="list-ul">
+                {
+                  activeMessages.map( (message, index) =>
+                    <li className={this.getBubbleClass(message, this.props.user)} key={message.key}>
+                      <div className="message-username">{message.username}</div>
+                      <div className={this.getContentClass(message, this.props.user)}>{message.content}</div>
+                      <div className="message-timestamp">{message.sentAt}</div>
+                    </li>
+                  )
+                }
+              </ul>
+
+            </div>
+          </div>
+
 
         {this.props.activeRoom === null ? '' :
           <div className="fixed-messages-footer">
             <form id="message-form">
-              <input type="text" className="message-input" placeholder="Write your message here..." onChange={ (e) => {this.handleMessageChange(e)} } />
-              <input type="submit" className="message-submit" value="SEND" onClick={ (e) => {this.createMessage(e)} } />
+              <textarea className="message-input" placeholder="Write your message here..." onChange={ (e) => {this.handleMessageChange(e)} } onKeyUp={ (e) => this.handleKeyPress(e)} >
+              </textarea><input type="submit" className="message-submit" value="SEND" onClick={ (e) => {this.createMessage(e)} } />
             </form>
           </div>
         }

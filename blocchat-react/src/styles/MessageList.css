@@ -6,23 +6,61 @@
   display: flex;
   flex: auto;
   flex-direction: column;
-  max-height: 100%;
+  height: 100%;
   width: 100%;
 }
 
-.fixed-messages-header, .fixed-messages-footer {
+.fixed-messages-header {
   flex: none;
-  height: 3em;
+  height: 10%;
+}
+
+.messages-overflow-container {
+  height: 80%;
+  flex: auto;
+  overflow-y: auto;
 }
 
 .scrolling-messages-list {
   display: flex;
-  flex-direction: column;
   flex: auto;
-  overflow-y: auto;
-  justify-content: flex-end;
+  flex-direction: column;
+  flex-grow: 1;
+  min-height: 0;
+  overflow: auto;
 }
 
+.scrolling-messages-list ul {
+  display: flex;
+  flex-direction: column-reverse;
+  margin-left: .5em;
+}
+
+.fixed-messages-footer {
+  flex: none;
+  height: 10%;
+}
+
+.fixed-messages-footer form {
+  display: flex;
+  align-items: center;
+}
+
+.message-input {
+  width: 90%;
+  display: flex;
+  flex-direction: column;
+  padding: 5px;
+  padding-bottom: 0;
+  resize: none;
+}
+
+#message-form input[type=submit] {
+  margin-right: .5em;
+  margin-top: .5em;
+  margin-bottom: .5em;
+  padding: 10px;
+}
 
 /******************************
       CONTAINER STYLES
@@ -50,14 +88,6 @@
         LIST STYLES
 ******************************/
 
-.scrolling-messages-list ul {
-  display: flex;
-  flex-direction: column;
-  margin-left: .5em;
-  margin-top: 0;
-  overflow-y: auto;
-}
-
 .scrolling-messages-list ul li {
   padding-bottom: .5em;
   max-width: 40%;
@@ -75,7 +105,7 @@
   align-items: flex-end;
   max-width: 45%;
   flex-wrap: wrap;
-  margin-right: 1em;
+  margin-right: 1.75em;
 }
 
 .receive-message-bubble {
@@ -89,14 +119,16 @@
 }
 
 .send-message-content {
-  border: 1px solid blue;
+  border: 1px solid rgb(60, 126, 216);
+  background: rgb(164, 194, 244);
   max-width: 95%;
   font-size: 1.25em;
-  padding: 5px 10px;
+  padding: 10px 15px;
 }
 
 .receive-message-content {
   border: 1px solid grey;
+  background: #e6e6e6;
   max-width: 95%;
   font-size: 1.25em;
   padding: 5px 10px;
@@ -114,15 +146,10 @@
   border-top: 1px solid #d6d6d6;
 }
 
-.fixed-messages-footer form {
-  display: flex;
-}
-
 .message-input {
-  width: 90%;
   font-size: 1.25em;
   font-weight: lighter;
-  padding: 10px 10px;
+  font-family: 'Roboto', sans-serif;
 }
 
 #message-form input[type=submit] {
@@ -130,5 +157,6 @@
   font-size: 1.25em;
   background: #e6e6e6;
   font-weight: lighter;
-  padding: 5px 10px;
+  margin-right: .5em;
+  /* padding: 10px; */
 }

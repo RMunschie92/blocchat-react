@@ -23,6 +23,10 @@ class RoomList extends Component{
     });
   }
 
+  handleSubmit(e) {
+    e.preventDefault();
+  }
+
   handleChange(e) {
     this.setState({ newRoomName: e.target.value })
   }
@@ -51,21 +55,23 @@ class RoomList extends Component{
           <h3>Chat Rooms</h3>
         </div>
 
-        <div className="scrolling-rooms-list">
-          <ul>
-            {
-              this.state.rooms.map( (room, index) =>
-                <li className={room.key} id={index} key={room.key} data-name={room.name} onClick={(e) => { this.props.handleRoomClick(e)} }>
-                  {room.name}
-                </li>
-              )
-            }
-          </ul>
+        <div className="rooms-overflow-container">
+          <div className="scrolling-rooms-list">
+            <ul>
+              {
+                this.state.rooms.map( (room, index) =>
+                  <li className={room.key} id={index} key={room.key} data-name={room.name} onClick={(e) => { this.props.handleRoomClick(e)} } >
+                    {room.name}
+                  </li>
+                )
+              }
+            </ul>
+          </div>
         </div>
 
         <div className="fixed-rooms-footer">
-          <form id="new-room-form">
-            <input type="text" name="new-room-name" placeholder="New room name..." onChange={(e) => { this.handleChange(e)} }/>
+          <form id="new-room-form" onSubmit={ (e) => this.createRoom(e) }>
+            <input type="text" className="new-room-input" name="new-room-name" placeholder="New room name..." onChange={(e) => { this.handleChange(e)} } />
             <span onClick={ (e) => { this.createRoom(e) } }><i className="fas fa-plus-circle fa-lg"></i></span>
           </form>
         </div>
