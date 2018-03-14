@@ -33,7 +33,7 @@ class User extends Component{
     return(
       <section className="user-and-header">
         <div className="header">
-          <h2>Bloc Chat</h2>
+          <h2>Munsch Chat</h2>
         </div>
         <div className="username-and-buttons">
           <div className="username-display">
